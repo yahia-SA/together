@@ -1,3 +1,7 @@
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:together/components/shared_data.dart';
@@ -34,6 +38,7 @@ class HaveAccount extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class BoxDec extends StatelessWidget {
   final double height;
   final double width;
@@ -72,15 +77,17 @@ class BoxDec extends StatelessWidget {
       child:
        MaterialButton(
         onPressed: press,
-        child: RichText(
+        child:
+        RichText(
           text: TextSpan(children: [
-            WidgetSpan(child: Icon(icon,size: font.sp,color: color,)),TextSpan(
+            TextSpan(
               text: text,
               style: TextStyle(
                 color: color,
                 fontSize: font.sp,
               ),
             ),
+            WidgetSpan(child: Icon(icon,size: font.sp,color: color,)),
           ]),
         ),
       ),

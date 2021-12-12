@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:together/components/shared_data.dart';
-import 'components/shared_widget.dart';
+import 'package:together/modules/shared/HaveAccount.dart';
+import 'package:together/modules/shared/shared_widget.dart';
 
 class ForgetPassword extends StatelessWidget {
    ForgetPassword({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class ForgetPassword extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black), // 1
+        iconTheme: const IconThemeData(color: Colors.black), // 1
       ),
 
       body: SizedBox(
@@ -37,7 +37,7 @@ class ForgetPassword extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 30.sp,
-                  color: Color(textColor),
+                  color: const Color(textColor),
                 ),
               ),
                SizedBox(
@@ -46,42 +46,43 @@ class ForgetPassword extends StatelessWidget {
               SizedBox(
                 width: 250.w,
                 height: 40.h,
-                child: defaultFormField(
+                child: DefaultFormField(
                       controller: emailC,
                       type: TextInputType.emailAddress,
                       hint: "Enter your email")
               ),
               SizedBox(height: 20.h,),
               Center(
-                child: Container(
-                  height: 50.h,
-                  width: 120.w,
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xff528ffe),
-                          Color(textColor),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(30.r)),
-                  child: MaterialButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.r),
-                    ),
-                    onPressed: () {
-                      print(emailC.text);
-                    },
-                    child:  Text(
-                      'Send',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.sp,
-                      ),
-                    ),
-                  ),
-                ),
+                child:  BoxDec(height: 50,width: 120,radius: 30,text: "Send",font: 15, press: () {  })
+                // Container(
+                //   height: 50.h,
+                //   width: 120.w,
+                //   decoration: BoxDecoration(
+                //       gradient: const LinearGradient(
+                //         begin: Alignment.topCenter,
+                //         end: Alignment.bottomCenter,
+                //         colors: [
+                //           Color(0xff528ffe),
+                //           Color(textColor),
+                //         ],
+                //       ),
+                //       borderRadius: BorderRadius.circular(30.r)),
+                //   child: MaterialButton(
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(30.r),
+                //     ),
+                //     onPressed: () {
+                //       print(emailC.text);
+                //     },
+                //     child:  Text(
+                //       'Send',
+                //       style: TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 15.sp,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ),
 
             ],

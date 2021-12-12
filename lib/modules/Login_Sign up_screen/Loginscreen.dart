@@ -1,12 +1,17 @@
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:together/components/shared_data.dart';
+import 'package:together/modules/shared/HaveAccount.dart';
+import 'package:together/modules/shared/shared_widget.dart';
 import 'Signup/SignUp_Screen.dart';
-import 'components/HaveAccount.dart';
-import 'components/shared_widget.dart';
 import 'forget_password.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   var emailC = TextEditingController();
@@ -26,7 +31,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(height: 20.h),
-              Container(
+              SizedBox(
                 width: double.infinity.w,
                 height: 200.h,
                 child: Lottie.asset('assets/images/main.json'),
@@ -47,13 +52,13 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.sp,
-                  color: Color(textColor),
+                  color: const Color(textColor),
                 ),
               ),
               SizedBox(
                   width: 250.w,
                   height: 40.h,
-                  child: defaultFormField(
+                  child: DefaultFormField(
                       controller: emailC,
                       type: TextInputType.emailAddress,
                       hint: "Enter your email")),
@@ -71,7 +76,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 width: 250.w,
                 height: 40.h,
-                child: defaultFormField(
+                child: DefaultFormField(
                     controller: passwordC,
                     isPassword: true,
                     type: TextInputType.visiblePassword,
@@ -82,7 +87,7 @@ class LoginScreen extends StatelessWidget {
               ),
               Container(
                   alignment: Alignment.bottomRight,
-                  child: defaultTextButton(
+                  child: DefaultTextButton(
                     text: 'Forget Password?',
                     press: () {
                       Navigator.push(

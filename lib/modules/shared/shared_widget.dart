@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class defaultTextButton extends StatelessWidget {
+class DefaultTextButton extends StatelessWidget {
   final Function() press;
   final String text;
-  const defaultTextButton({Key? key, required this.press, required this.text})
+  const DefaultTextButton({Key? key, required this.press, required this.text})
       : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class defaultTextButton extends StatelessWidget {
   }
 }
 
-class defaultFormField extends StatelessWidget {
+class DefaultFormField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType type;
   final Function(String)? onSubmit;
@@ -32,7 +32,7 @@ class defaultFormField extends StatelessWidget {
   final VoidCallback? suffixPressed;
   final bool isClickable;
 
-  const defaultFormField({
+  const DefaultFormField({
     required this.controller,
     Key? key,
     required this.type,
