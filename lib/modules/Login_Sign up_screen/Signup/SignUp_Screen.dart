@@ -151,7 +151,7 @@ class SignUp extends StatelessWidget {
                       font: 12,
                       press: () {},
                       text: "Choose Pic",
-                      icon: Icons.upload_sharp,
+                      icon: Icons.upload_sharp, radius: 30,
                     )
                   ],
                 ),
@@ -178,13 +178,13 @@ class SignUp extends StatelessWidget {
                       font: 12,
                       press: () {},
                       text: "Choose Pic",
-                      icon: Icons.upload_sharp,
+                      icon: Icons.upload_sharp, radius: 30,
                     )
                   ],
                 ),
                 SizedBox(height: 10.h,),
               Center(
-                child: BoxDec(font: 15, press: () {  }, height: 40, width: 120,text:'SignUp' ,),
+                child: BoxDec(font: 15, press: () {  }, height: 40, width: 120,text:'SignUp', radius: 30 ,),
               ),
               HaveAccount(login: false,prees: () { Navigator.push(
                         context,

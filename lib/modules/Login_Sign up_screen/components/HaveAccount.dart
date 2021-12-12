@@ -40,6 +40,7 @@ class BoxDec extends StatelessWidget {
   final double font;
   final Function() press;
   final String text;
+  final double radius;
   IconData? icon;
   Color? color;
   BoxDec({
@@ -50,7 +51,7 @@ class BoxDec extends StatelessWidget {
     required this.press,
     required this.text,
     this.icon,
-    this.color =Colors.white,
+    this.color =Colors.white, required this.radius,
   }) : super(key: key);
 
   @override
@@ -67,7 +68,7 @@ class BoxDec extends StatelessWidget {
               Color(textColor),
             ],
           ),
-          borderRadius: BorderRadius.circular(30.r)),
+          borderRadius: BorderRadius.circular(radius.r)),
       child:
        MaterialButton(
         onPressed: press,

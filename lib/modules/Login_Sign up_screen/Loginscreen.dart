@@ -84,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                   alignment: Alignment.bottomRight,
                   child: defaultTextButton(
                     text: 'Forget Password?',
-                    prss: () {
+                    press: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                     },
                   )),
               Center(
-                child: BoxDec(font: 15, press: () {  }, height: 40, width: 120,text:'LogIn' ,),
+                child: BoxDec(font: 15, press: () {  }, height: 40, width: 120,text:'LogIn', radius: 30 ,),
               ),
               HaveAccount(prees: () { Navigator.push(
                         context,
