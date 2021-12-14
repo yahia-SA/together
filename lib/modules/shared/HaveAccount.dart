@@ -87,7 +87,7 @@ class BoxDec extends StatelessWidget {
                 fontSize: font.sp,
               ),
             ),
-            WidgetSpan(child: Icon(icon,size: font.sp,color: color,)),
+            if (icon!=null) WidgetSpan(child: Icon(icon,size: font.sp,color: color,)),
           ]),
         ),
       ),
