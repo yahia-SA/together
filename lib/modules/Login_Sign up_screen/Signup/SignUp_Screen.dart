@@ -9,7 +9,7 @@ import 'package:together/modules/shared/shared_widget.dart';
 
 // ignore: must_be_immutable
 class SignUp extends StatelessWidget {
-  var Fullname = TextEditingController();
+  var fullname = TextEditingController();
   var email = TextEditingController();
   var password = TextEditingController();
   var phone = TextEditingController();
@@ -56,7 +56,7 @@ class SignUp extends StatelessWidget {
                       width: 250.w,
                       height: 40.h,
                       child: DefaultFormField(
-                          controller: Fullname,
+                          controller: fullname,
                           type: TextInputType.name,
                           hint: "Enter your Name")),
                   SizedBox(

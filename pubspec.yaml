@@ -38,6 +38,16 @@ dependencies:
   flutter_screenutil: ^5.0.1
   lottie: ^1.2.1
   device_preview: ^1.0.0
+  shared_preferences: 
+  conditional_builder: 
+  flutter_bloc: 
+  image_picker: 
+  dio:
+  flutter_svg:
+  conditional_builder_null_safety:
+  fluttertoast: ^8.0.9
+  auto_size_text: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:

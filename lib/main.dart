@@ -1,4 +1,3 @@
-
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Cairo',
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.deepPurple,
         ),
         home: const BoardingScreen(),
       ),
