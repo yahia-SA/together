@@ -42,6 +42,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<key>NSPhotoLibraryUsageDescription</key>
+		<string>Allow this app to access your photos</string>
 	<true/>
 </dict>
 </plist>
