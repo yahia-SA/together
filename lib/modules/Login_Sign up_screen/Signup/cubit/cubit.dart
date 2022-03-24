@@ -62,15 +62,25 @@ class SignUpCubit extends Cubit<SignUpStates> {
     city=newcity;
     emit(SignUpCityState());
   }
-  File? image;
+  File? idImage,profileImage;
   final picker=ImagePicker();
   // Implementing the image picker
-  Future<void> openImagePicker() async {
+  void iDImagePicker()  async {
     final XFile? pickedImage =
         await picker.pickImage(source: ImageSource.gallery);
         if(pickedImage!=null){
-        image = File(pickedImage.path);
+        idImage = File(pickedImage.path);
        emit(OpenImagePicker());
     }
+           emit(OpenImagePicker());
+  }
+  void profileImagePicker()  async {
+    final XFile? pickedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+        if(pickedImage!=null){
+        profileImage = File(pickedImage.path);
+       emit(OpenImagePicker());
+    }
+           emit(OpenImagePicker());
   }
   }

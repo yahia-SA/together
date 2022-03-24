@@ -47,6 +47,7 @@ dependencies:
   conditional_builder_null_safety:
   fluttertoast: ^8.0.9
   auto_size_text: ^3.0.0
+  date_time_picker: ^2.1.0
 
 
 dev_dependencies:

@@ -17,11 +17,11 @@ final Shader linearGradient = const LinearGradient(
 
 PageDecoration getPageDecoration() => PageDecoration(
       titleTextStyle: TextStyle(
-          fontSize: 30,
+          fontSize: 30.sp,
           fontWeight: FontWeight.bold,
           foreground: Paint()..shader = linearGradient),
       bodyTextStyle: TextStyle(
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.bold,
           foreground: Paint()..shader = linearGradient),
       titlePadding: EdgeInsets.all(10.r).copyWith(bottom: 0),
@@ -32,20 +32,31 @@ void goToHome(context, page) => Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => page),
     );
-void signOut(context) {
-  CacheHelper.removeData(
-    key: 'token',
-  ).then((value) {
-    if (value) {
-      goToHome(
-        context,
-        LoginScreen(),
-      );
-    }
-  });
+void submit(context) {
+    CacheHelper.saveData(
+      key: 'onBoarding',
+      value: true,
+    ).then((value)
+    {
+      if (value) {
+        goToHome(context, LoginScreen());
+      }
+    });
 }
+// void signOut(context) {
+//   CacheHelper.removeData(
+//     key: 'token',
+//   ).then((value) {
+//     if (value) {
+//       goToHome(
+//         context,
+//         LoginScreen(),
+//       );
+//     }
+//   });
+// }
 
-String token = '';
+// String token = '';
 
 Row nextbutton(String name, {IconData? icon}) => Row(children: [
       AutoSizeText(
@@ -61,8 +72,8 @@ Row nextbutton(String name, {IconData? icon}) => Row(children: [
 DotsDecorator getDotDecoration() => DotsDecorator(
       color: Colors.blue,
       activeColor: const Color(0xffb64dfa),
-      size: Size(10.r, 10.h),
-      activeSize: Size(30.r, 10.h),
+      size: Size(10.w, 10.h),
+      activeSize: Size(30.w, 10.h),
       activeShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24.r),
       ),
@@ -78,7 +89,7 @@ void showToast({
       timeInSecForIosWeb: 5,
       backgroundColor: chooseToastColor(state),
       textColor: Colors.white,
-      fontSize: 16.0,
+      fontSize: 16.0.sp,
     );
 chooseToastColor(ToastStates state) {
   Color color;

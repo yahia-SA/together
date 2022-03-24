@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +5,6 @@ import 'package:lottie/lottie.dart';
 import 'package:together/shared/components/HaveAccount.dart';
 import 'package:together/shared/components/shared_widget.dart';
 
-// ignore: must_be_immutable
 class ForgetPassword extends StatelessWidget {
    ForgetPassword({Key? key}) : super(key: key);
    var emailC = TextEditingController();
@@ -42,11 +40,11 @@ class ForgetPassword extends StatelessWidget {
                     height: 300.h,
                     child: Lottie.asset('assets/images/passwordffs.json'),
                   ),
-                   const AutoSizeText(
+                   Text(
                     'Send Password',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 30.sp,
                       color: Colors.white,
                     ),
                   ),
@@ -84,11 +82,11 @@ class ForgetPassword extends StatelessWidget {
                     //     onPressed: () {
                     //       print(emailC.text);
                     //     },
-                    //     child:  AutoSizeText(
+                    //     child:  Text(
                     //       'Send',
                     //       style: TextStyle(
                     //         color: Colors.white,
-                    //         fontSize: 15,
+                    //         fontSize: 15.sp,
                     //       ),
                     //     ),
                     //   ),
