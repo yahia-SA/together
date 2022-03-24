@@ -1,11 +1,12 @@
 // ignore_for_file: constant_identifier_names
 
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:together/modules/Login_Sign%20up_screen/login/Loginscreen.dart';
+import 'package:together/shared/network/local/cache_helper.dart';
 
 final Shader linearGradient = const LinearGradient(
   colors: <Color>[
@@ -31,20 +32,32 @@ void goToHome(context, page) => Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => page),
     );
+void signOut(context) {
+  CacheHelper.removeData(
+    key: 'token',
+  ).then((value) {
+    if (value) {
+      goToHome(
+        context,
+        LoginScreen(),
+      );
+    }
+  });
+}
 
-Row nextbutton(String name, {IconData? icon}) => Row(
-      children: [
-        AutoSizeText(
-           name,
-          style: const TextStyle(
-            color: Color(0xffb64dfa),
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
+String token = '';
+
+Row nextbutton(String name, {IconData? icon}) => Row(children: [
+      AutoSizeText(
+        name,
+        style: const TextStyle(
+          color: Color(0xffb64dfa),
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
         ),
-        
-         Icon(icon, color: const Color(0xffb64dfa), size: 22.r),
-      ]);
+      ),
+      Icon(icon, color: const Color(0xffb64dfa), size: 22.r),
+    ]);
 DotsDecorator getDotDecoration() => DotsDecorator(
       color: Colors.blue,
       activeColor: const Color(0xffb64dfa),

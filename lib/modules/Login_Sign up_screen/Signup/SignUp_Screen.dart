@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:together/components/shared_data.dart';
-import 'package:together/modules/Login_Sign%20up_screen/Loginscreen.dart';
-import 'package:together/modules/shared/HaveAccount.dart';
-import 'package:together/modules/shared/shared_widget.dart';
+import 'package:together/modules/Login_Sign%20up_screen/login/Loginscreen.dart';
+import 'package:together/shared/components/HaveAccount.dart';
+import 'package:together/shared/components/shared_data.dart';
+import 'package:together/shared/components/shared_widget.dart';
 
 // ignore: must_be_immutable
 class SignUp extends StatelessWidget {

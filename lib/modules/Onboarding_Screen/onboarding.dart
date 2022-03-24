@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:together/modules/shared/date.dart';
+import 'package:together/modules/Login_Sign%20up_screen/login/Loginscreen.dart';
+import 'package:together/shared/components/date.dart';
 
 class BoardingScreen extends StatefulWidget {
   const BoardingScreen({Key? key}) : super(key: key);
@@ -51,8 +52,8 @@ class _BoardingScreenState extends State<BoardingScreen> {
       skip: nextbutton('Skip', icon: Icons.skip_next),
       next: nextbutton("next", icon: Icons.arrow_forward),
       done: nextbutton("done", icon: Icons.done_all),
-      onDone: () => goToHome(context),
-      onSkip: () => goToHome(context),
+      onDone: () => goToHome(context,LoginScreen()),
+      onSkip: () => goToHome(context,LoginScreen()),
       dotsDecorator: getDotDecoration(),
       globalBackgroundColor: Colors.white,
       animationDuration: 350,
