@@ -43,21 +43,6 @@ void submit(context) {
       }
     });
 }
-// void signOut(context) {
-//   CacheHelper.removeData(
-//     key: 'token',
-//   ).then((value) {
-//     if (value) {
-//       goToHome(
-//         context,
-//         LoginScreen(),
-//       );
-//     }
-//   });
-// }
-
-// String token = '';
-
 Row nextbutton(String name, {IconData? icon}) => Row(children: [
       AutoSizeText(
         name,
