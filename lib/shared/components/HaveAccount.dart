@@ -64,7 +64,7 @@ class BoxDec extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height.h,
-      width: width.w,
+      width: width.h,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(radius.r)),
       child: MaterialButton(
@@ -77,6 +77,7 @@ class BoxDec extends StatelessWidget {
             style: TextStyle(
               color: const Color(0xffb64dfa),
               fontSize: font,
+              fontWeight: FontWeight.bold,
             ),
           ),
           if (icon != null)Icon(icon,size: font.r,color:const Color(0xffb64dfa) ,)

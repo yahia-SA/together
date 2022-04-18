@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,9 +24,9 @@ class ForgetPassword extends StatelessWidget {
 
       body: Stack(
         children: [
-          SvgPicture.asset('assets/images/bg000.svg' , width: double.infinity.w,height: double.infinity.h,fit: BoxFit.cover,),
+          SvgPicture.asset('assets/images/bg000.svg' , width: double.infinity.h,height: double.infinity.h,fit: BoxFit.cover,),
           SizedBox(
-            width: double.infinity.w,
+            width: double.infinity.h,
             child: SingleChildScrollView(
               child: Padding(
                 padding:  EdgeInsets.all(20.r),
@@ -36,15 +37,15 @@ class ForgetPassword extends StatelessWidget {
                     height: 50.h,
                   ),
                   SizedBox(
-                    width: double.infinity.w,
+                    width: double.infinity.h,
                     height: 300.h,
                     child: Lottie.asset('assets/images/passwordffs.json'),
                   ),
-                   Text(
+                   AutoSizeText(
                     'Send Password',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 30.sp,
+                      fontSize: 30,
                       color: Colors.white,
                     ),
                   ),
@@ -52,7 +53,7 @@ class ForgetPassword extends StatelessWidget {
                     height: 10.h,
                   ),
                   SizedBox(
-                    width: 250.w,
+                    width: 250.h,
                     height: 40.h,
                     child: DefaultFormField(
                           controller: emailC,
@@ -82,11 +83,11 @@ class ForgetPassword extends StatelessWidget {
                     //     onPressed: () {
                     //       print(emailC.text);
                     //     },
-                    //     child:  Text(
+                    //     child:  AutoSizeText(
                     //       'Send',
                     //       style: TextStyle(
                     //         color: Colors.white,
-                    //         fontSize: 15.sp,
+                    //         fontSize: 15,
                     //       ),
                     //     ),
                     //   ),

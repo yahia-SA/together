@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, prefer_const_constructors, avoid_print
 
-
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -8,16 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:together/layout/home.dart';
 import 'package:together/modules/Login_Sign%20up_screen/Signup/cubit/cubit.dart';
 import 'package:together/modules/Login_Sign%20up_screen/Signup/cubit/states.dart';
 import 'package:together/modules/Login_Sign%20up_screen/login/Loginscreen.dart';
 import 'package:together/shared/components/HaveAccount.dart';
-import 'package:together/shared/components/date.dart';
 import 'package:together/shared/components/shared_data.dart';
 import 'package:together/shared/components/shared_widget.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:together/shared/network/local/cache_helper.dart';
 
 // ignore: must_be_immutable
 class SignUp extends StatelessWidget {
@@ -39,48 +35,48 @@ class SignUp extends StatelessWidget {
         create: (BuildContext context) => SignUpCubit(),
         child:
             BlocConsumer<SignUpCubit, SignUpStates>(listener: (context, state) {
-          if (state is SignUpSuccessState) {
-            if (state.loginModel.status) {
-              print(state.loginModel.message);
-              print(state.loginModel.data.token);
+          // if (state is SignUpSuccessState) {
+          //   if (state.loginModel.status) {
+          //     print(state.loginModel.message);
+          //     print(state.loginModel.data.token);
 
-              CacheHelper.saveData(
-                key: 'token',
-                value: state.loginModel.data.token,
-              ).then((value) {
-                var token = state.loginModel.data.token;
+          //     CacheHelper.saveData(
+          //       key: 'token',
+          //       value: state.loginModel.data.token,
+          //     ).then((value) {
+          //        token = state.loginModel.data.token;
 
-                goToHome(
-                  context,
-                  Home(),
-                );
-              });
-            } else {
-              print(state.loginModel.message);
+          //       goToHome(
+          //         context,
+          //         Home(),
+          //       );
+          //     });
+          //   } else {
+          //     print(state.loginModel.message);
 
-              showToast(
-                text: state.loginModel.message,
-                state: ToastStates.ERROR,
-              );
-            }
-          }
+          //     showToast(
+          //       text: state.loginModel.message,
+          //       state: ToastStates.ERROR,
+          //     );
+          //   }
+          // }
         }, builder: (context, state) {
-            File?profileImage= SignUpCubit.get(context).profileImage;
-            File?idImage= SignUpCubit.get(context).idImage;
+          File? profileImage = SignUpCubit.get(context).profileImage;
+          File? idImage = SignUpCubit.get(context).idImage;
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
               children: [
                 SvgPicture.asset(
                   'assets/images/bg000.svg',
-                  width: double.infinity.w,
+                  width: double.infinity.h,
                   height: double.infinity.h,
                   fit: BoxFit.cover,
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0.r),
                   child: SizedBox(
-                    width: double.infinity.w,
+                    width: double.infinity.h,
                     height: double.infinity.h,
                     child: SingleChildScrollView(
                       child: Padding(
@@ -115,7 +111,7 @@ class SignUp extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                  width: 250.w,
+                                  width: 250.h,
                                   height: 40.h,
                                   child: DefaultFormField(
                                       controller: fullname,
@@ -139,7 +135,7 @@ class SignUp extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                  width: 250.w,
+                                  width: 250.h,
                                   height: 40.h,
                                   child: DefaultFormField(
                                       controller: email,
@@ -163,7 +159,7 @@ class SignUp extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: 250.w,
+                                width: 250.h,
                                 height: 40.h,
                                 child: DefaultFormField(
                                     isPassword:
@@ -195,10 +191,10 @@ class SignUp extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: 10.h,
+                                height: 20.h,
                               ),
                               SizedBox(
-                                width: 250.w,
+                                width: 250.h,
                                 height: 40.h,
                                 child: DefaultFormField(
                                     controller: phone,
@@ -228,7 +224,7 @@ class SignUp extends StatelessWidget {
                               ),
                               Container(
                                 height: 28.h,
-                                width: 110.w,
+                                width: 110.h,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(30.r)),
@@ -239,7 +235,7 @@ class SignUp extends StatelessWidget {
                                   ),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 15.sp, color: Color(textColor)),
+                                      fontSize: 15.r, color: Color(textColor)),
                                   initialValue: DateTime.now().toString(),
                                   firstDate: DateTime(1900),
                                   lastDate: DateTime(2100),
@@ -269,12 +265,12 @@ class SignUp extends StatelessWidget {
                                 'Address',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18.sp,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
                               SizedBox(
-                                  width: 250.w,
+                                  width: 250.h,
                                   height: 40.h,
                                   child: DefaultFormField(
                                       controller: address,
@@ -293,15 +289,15 @@ class SignUp extends StatelessWidget {
                                 'ID Card Number',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18.sp,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
-                                SizedBox(
+                              SizedBox(
                                 height: 20.h,
                               ),
                               SizedBox(
-                                width: 250.w,
+                                width: 250.h,
                                 height: 40.h,
                                 child: DefaultFormField(
                                     controller: idnumber,
@@ -331,7 +327,7 @@ class SignUp extends StatelessWidget {
                               ),
                               Container(
                                 height: 28.h,
-                                width: 110.w,
+                                width: 110.h,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(30.r)),
@@ -341,8 +337,8 @@ class SignUp extends StatelessWidget {
                                         ? AutoSizeText(
                                             '     Select City',
                                             style: TextStyle(
-                                                color: Color(textColor),
-                                              ),
+                                              color: Color(textColor),
+                                            ),
                                           )
                                         : AutoSizeText(
                                             '     ' + city!,
@@ -353,7 +349,7 @@ class SignUp extends StatelessWidget {
                                     iconSize: 30.0,
                                     style: TextStyle(
                                         color: Color(textColor),
-                                        fontSize: 12.sp),
+                                        fontSize: 12),
                                     items: allCities.map(
                                       (val) {
                                         return DropdownMenuItem<String>(
@@ -365,8 +361,7 @@ class SignUp extends StatelessWidget {
                                     onChanged: (val) {
                                       SignUpCubit.get(context)
                                           .citydata(val.toString());
-                                      city =
-                                          SignUpCubit.get(context).city;
+                                      city = SignUpCubit.get(context).city;
                                       print(city);
                                     },
                                   ),
@@ -376,7 +371,7 @@ class SignUp extends StatelessWidget {
                                 height: 15.h,
                               ),
                               Container(
-                                  width: double.infinity.w,
+                                  width: double.infinity.h,
                                   height: 5.h,
                                   color: Colors.black.withOpacity(0.15)),
                               SizedBox(
@@ -408,7 +403,13 @@ class SignUp extends StatelessWidget {
                               SizedBox(
                                 width: 100.r,
                                 height: 100.r,
-                                child: profileImage!=null ? Image.file(profileImage,width: 100.r,height: 100.r,):AutoSizeText(' '),
+                                child: profileImage != null
+                                    ? Image.file(
+                                        profileImage,
+                                        width: 100.r,
+                                        height: 100.r,
+                                      )
+                                    : AutoSizeText(' '),
                               ),
                               SizedBox(
                                 height: 10.h,
@@ -433,10 +434,10 @@ class SignUp extends StatelessWidget {
                                         color: Colors.green,
                                       ),
                                       SizedBox(
-                                        width: 10.w,
+                                        width: 10.h,
                                       ),
                                       AutoSizeText(
-                                        'No sunglasses',
+                                        'No cap , no glasses',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12,
@@ -452,10 +453,29 @@ class SignUp extends StatelessWidget {
                                         color: Colors.green,
                                       ),
                                       SizedBox(
-                                        width: 10.w,
+                                        width: 10.h,
                                       ),
                                       AutoSizeText(
-                                        'No cap',
+                                        'No more than 12 months old',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.check_circle_rounded,
+                                        color: Colors.green,
+                                      ),
+                                      SizedBox(
+                                        width: 10.h,
+                                      ),
+                                      AutoSizeText(
+                                        'Face takes 70-80% of it',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12,
@@ -470,7 +490,7 @@ class SignUp extends StatelessWidget {
                                 height: 15.h,
                               ),
                               Container(
-                                  width: double.infinity.w,
+                                  width: double.infinity.h,
                                   height: 5.h,
                                   color: Colors.black.withOpacity(0.15)),
                               SizedBox(
@@ -513,8 +533,13 @@ class SignUp extends StatelessWidget {
                                 height: 10.h,
                               ),
                               SizedBox(
-                                width: 200.w,
-                                child:  idImage!=null ? Image.file(idImage,fit: BoxFit.cover,):Image.asset('assets/images/id.jpg'),
+                                width: 200.h,
+                                child: idImage != null
+                                    ? Image.file(
+                                        idImage,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset('assets/images/id.jpg'),
                               ),
                               SizedBox(
                                 height: 50.h,

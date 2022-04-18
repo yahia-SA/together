@@ -30,6 +30,7 @@ class DefaultFormField extends StatelessWidget {
   final bool isPassword;
   final String? Function(String?)? validate;
   final IconData? suffix;
+  final IconData? prefix;
   final VoidCallback? suffixPressed;
   final bool isClickable;
   final int? maxLength;
@@ -45,6 +46,7 @@ class DefaultFormField extends StatelessWidget {
     this.onTap,
     this.validate,
     this.suffix,
+    this.prefix,
     this.suffixPressed,
     this.isPassword = false,
     this.isClickable = true,
@@ -69,6 +71,7 @@ class DefaultFormField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(color: Colors.white),
+        prefixIcon: prefix != null ? Icon(prefix) : null,
         suffixIcon: suffix != null
             ? IconButton(
                 onPressed: suffixPressed,

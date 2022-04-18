@@ -15,33 +15,44 @@ final Shader linearGradient = const LinearGradient(
   ],
 ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
+LinearGradient background = const LinearGradient(
+  colors: <Color>[
+    Color(0xff4c489d),
+    Color(0xff4c489d),
+    Color(0xffc708ca),
+  ],
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+);
+
 PageDecoration getPageDecoration() => PageDecoration(
       titleTextStyle: TextStyle(
-          fontSize: 30.sp,
+          fontSize: 30.r,
           fontWeight: FontWeight.bold,
           foreground: Paint()..shader = linearGradient),
       bodyTextStyle: TextStyle(
-          fontSize: 20.sp,
+          fontSize: 20.r,
           fontWeight: FontWeight.bold,
           foreground: Paint()..shader = linearGradient),
       titlePadding: EdgeInsets.all(10.r).copyWith(bottom: 0),
       imagePadding: EdgeInsets.all(10.r),
       pageColor: Colors.white,
     );
+void navgigtor(context, page) =>Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+
 void goToHome(context, page) => Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => page),
     );
 void submit(context) {
-    CacheHelper.saveData(
-      key: 'onBoarding',
-      value: true,
-    ).then((value)
-    {
-      if (value) {
-        goToHome(context, LoginScreen());
-      }
-    });
+  CacheHelper.saveData(
+    key: 'onBoarding',
+    value: true,
+  ).then((value) {
+    if (value) {
+      goToHome(context, LoginScreen());
+    }
+  });
 }
 Row nextbutton(String name, {IconData? icon}) => Row(children: [
       AutoSizeText(
@@ -57,8 +68,8 @@ Row nextbutton(String name, {IconData? icon}) => Row(children: [
 DotsDecorator getDotDecoration() => DotsDecorator(
       color: Colors.blue,
       activeColor: const Color(0xffb64dfa),
-      size: Size(10.w, 10.h),
-      activeSize: Size(30.w, 10.h),
+      size: Size(10.h, 10.h),
+      activeSize: Size(30.h, 10.h),
       activeShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24.r),
       ),
