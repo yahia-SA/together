@@ -24,6 +24,13 @@ LinearGradient background = const LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
 );
+LinearGradient postformbackground = const LinearGradient(
+  colors: <Color>[
+    Color(0xff4c489d),
+    Color(0xff720974),
+  ],
+  transform: GradientRotation(45),
+);
 
 PageDecoration getPageDecoration() => PageDecoration(
       titleTextStyle: TextStyle(

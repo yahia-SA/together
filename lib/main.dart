@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:together/modules/Login_Sign%20up_screen/login/Loginscreen.dart';
-import 'package:together/modules/Timeline/FAQ/FAQ.dart';
 import 'package:together/modules/Timeline/HomePage/HomePage.dart';
 import 'package:together/shared/components/SignOut.dart';
 import 'package:together/shared/network/local/cache_helper.dart';

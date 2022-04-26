@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:together/modules/Login_Sign%20up_screen/login/Loginscreen.dart';
 import 'package:together/shared/components/date.dart';
 import 'package:together/shared/network/local/cache_helper.dart';

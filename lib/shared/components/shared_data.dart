@@ -28,3 +28,23 @@ var  allCities = [
   "El Arish",
   "Matruh",
 ];
+var  allCategories = [
+
+  "Men Clothes",
+  "Women Clothes",
+  "Home Tools",
+  "Musical Ins",
+  "Kids Stuff",
+  "Cars",
+  "DVDs",
+  "Computer Games",
+  "Books",
+  "Garden Eqp",
+  "Electerics",
+  "Tools",
+  "Kitchen Eqp",
+  "Furniture",
+  "Bikes",
+  "Sports",
+  "Others",
+];

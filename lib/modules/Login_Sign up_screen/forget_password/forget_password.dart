@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +43,7 @@ class ForgetPassword extends StatelessWidget {
                     height: 300.h,
                     child: Lottie.asset('assets/images/passwordffs.json'),
                   ),
-                   AutoSizeText(
+                  const AutoSizeText(
                     'Send Password',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
