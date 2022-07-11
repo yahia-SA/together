@@ -26,6 +26,3 @@ class SignUpChangePasswordVisibilityState extends SignUpStates {}
 
 class SignUpCityState extends SignUpStates {
 }
-
-class SignUpBirthdayState extends SignUpStates {
-}

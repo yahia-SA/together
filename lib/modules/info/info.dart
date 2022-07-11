@@ -8,27 +8,27 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class InfoScreen extends StatelessWidget {
-  InfoScreen({Key? key, 
-    this.imagePath='https://static.wikia.nocookie.net/bigbangtheory/images/4/4d/Reverb2.jpg',
-    this.username = 'Leonard Hofstadter',
-    this.city = 'Portsaid',
-    this.address = 'Elzohour',
-    this.phoneNumber = '+201010101010',
+  const InfoScreen({Key? key, 
+    required this.imagePath,
+    required this.username,
+    required this.city,
+    required this.address,
+    required this.phoneNumber,
     this.facebook = 'https://www.facebook.com/',
     this.lindekin = 'https://www.linkedin.com/',
     this.twitter = 'https://twitter.com/',
     this.instagram = 'https://www.instagram.com/',
 
   }) : super(key: key);
-  var imagePath;
-  var username;
-  var city;
-  var address;
-  var phoneNumber;
-  var facebook;
-  var lindekin;
-  var twitter;
-  var instagram;
+  final String imagePath;
+  final String username;
+  final String city;
+  final String address;
+  final String phoneNumber;
+  final String facebook;
+  final String lindekin;
+  final String twitter;
+  final String instagram;
 
 
 
@@ -43,7 +43,7 @@ class InfoScreen extends StatelessWidget {
 
       ),
       body: Container(
-        width: double.infinity.r,
+        width: double.infinity.w,
         height: double.infinity.h,
         decoration: const BoxDecoration(
           color: Color(0xffc5cae9),
@@ -54,7 +54,7 @@ class InfoScreen extends StatelessWidget {
               margin: EdgeInsets.only(
                 top: 20.h
               ),
-              width: 320.h,
+              width: 320.w,
               height: 500.h,
               child: Stack(
                 alignment:Alignment.topCenter,
@@ -63,7 +63,7 @@ class InfoScreen extends StatelessWidget {
                   SvgPicture.asset('assets/images/infocard.svg',
                     fit: BoxFit.cover,
                     alignment: Alignment.center,
-                    width: double.infinity.h,
+                    width: double.infinity.w,
                     height: double.infinity.h,
                   ),
           
@@ -93,13 +93,13 @@ class InfoScreen extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 200.h),
-                    width: 80.r,
+                    width: 80.w,
                     height: 1.h,
                     color: Colors.black,
                   ),
           
                   Container(
-                    width: 250.h,
+                    width: 250.w,
                     height: 160.h,
                     margin: EdgeInsets.only(top: 200.h),
                     child: Column(
@@ -164,7 +164,7 @@ class InfoScreen extends StatelessWidget {
                   ),
           
                   Container(
-                    width: 250.h,
+                    width: 250.w,
                     height: 50.h,
                     // color: Colors.green,
                     margin: EdgeInsets.only(top: 420.h),

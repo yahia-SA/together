@@ -10,10 +10,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:together/modules/Login_Sign%20up_screen/Signup/cubit/cubit.dart';
 import 'package:together/modules/Login_Sign%20up_screen/Signup/cubit/states.dart';
 import 'package:together/modules/Login_Sign%20up_screen/login/Loginscreen.dart';
+import 'package:together/modules/Timeline/HomePage/HomePage.dart';
 import 'package:together/shared/components/HaveAccount.dart';
+import 'package:together/shared/components/SignOut.dart';
+import 'package:together/shared/components/date.dart';
 import 'package:together/shared/components/shared_data.dart';
 import 'package:together/shared/components/shared_widget.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:together/shared/network/local/cache_helper.dart';
 
 // ignore: must_be_immutable
 class SignUp extends StatelessWidget {
@@ -21,11 +24,13 @@ class SignUp extends StatelessWidget {
   var fullname = TextEditingController();
   var email = TextEditingController();
   var password = TextEditingController();
+  var passwordconfirm = TextEditingController();
   var phone = TextEditingController();
   var idnumber = TextEditingController();
   var address = TextEditingController();
+  var date = TextEditingController();
   String? city;
-  String? birthday;
+  File? profileImage, idImage;
 
   SignUp({Key? key}) : super(key: key);
 
@@ -35,48 +40,53 @@ class SignUp extends StatelessWidget {
         create: (BuildContext context) => SignUpCubit(),
         child:
             BlocConsumer<SignUpCubit, SignUpStates>(listener: (context, state) {
-          // if (state is SignUpSuccessState) {
-          //   if (state.loginModel.status) {
-          //     print(state.loginModel.message);
-          //     print(state.loginModel.data.token);
+          if (state is SignUpSuccessState) {
+            if (state.loginModel.status == 'success') {
+              print(state.loginModel.message);
+              print(state.loginModel.token);
+              CacheHelper.saveData(
+                key: 'iduser',
+                value: state.loginModel.data!.user!.sId,
+              ).then((value) {
+                return iduser = state.loginModel.data!.user!.sId;
+              });
 
-          //     CacheHelper.saveData(
-          //       key: 'token',
-          //       value: state.loginModel.data.token,
-          //     ).then((value) {
-          //        token = state.loginModel.data.token;
-
-          //       goToHome(
-          //         context,
-          //         Home(),
-          //       );
-          //     });
-          //   } else {
-          //     print(state.loginModel.message);
-
-          //     showToast(
-          //       text: state.loginModel.message,
-          //       state: ToastStates.ERROR,
-          //     );
-          //   }
-          // }
+              CacheHelper.saveData(
+                key: 'token',
+                value: state.loginModel.token,
+              ).then((value) {
+                token = state.loginModel.token;
+                goToHome(
+                  context,
+                  const Home(),
+                );
+              });
+            }
+          }
+          if (state is SignUpErrorState) {
+            print(state.error);
+            showToast(
+              text: state.error,
+              state: ToastStates.ERROR,
+            );
+          }
         }, builder: (context, state) {
-          File? profileImage = SignUpCubit.get(context).profileImage;
-          File? idImage = SignUpCubit.get(context).idImage;
+          idImage = SignUpCubit.get(context).idImage;
+          profileImage = SignUpCubit.get(context).profileImage;
           return Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             body: Stack(
               children: [
                 SvgPicture.asset(
                   'assets/images/bg000.svg',
-                  width: double.infinity.h,
+                  width: double.infinity.w,
                   height: double.infinity.h,
                   fit: BoxFit.cover,
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0.r),
                   child: SizedBox(
-                    width: double.infinity.h,
+                    width: double.infinity.w,
                     height: double.infinity.h,
                     child: SingleChildScrollView(
                       child: Padding(
@@ -111,7 +121,7 @@ class SignUp extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                  width: 250.h,
+                                  width: 250.w,
                                   height: 40.h,
                                   child: DefaultFormField(
                                       controller: fullname,
@@ -135,7 +145,7 @@ class SignUp extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                  width: 250.h,
+                                  width: 250.w,
                                   height: 40.h,
                                   child: DefaultFormField(
                                       controller: email,
@@ -159,7 +169,7 @@ class SignUp extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                width: 250.h,
+                                width: 250.w,
                                 height: 40.h,
                                 child: DefaultFormField(
                                     isPassword:
@@ -183,6 +193,42 @@ class SignUp extends StatelessWidget {
                                 height: 25.h,
                               ),
                               AutoSizeText(
+                                'Confirm Password',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 250.w,
+                                height: 40.h,
+                                child: DefaultFormField(
+                                    isPassword: SignUpCubit.get(context)
+                                        .confirmisPassword,
+                                    suffix:
+                                        SignUpCubit.get(context).confirmsuffix,
+                                    suffixPressed: () {
+                                      SignUpCubit.get(context)
+                                          .changeconfirmPasswordVisibility();
+                                    },
+                                    controller: passwordconfirm,
+                                    type: TextInputType.visiblePassword,
+                                    validate: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'password is too short';
+                                      }
+                                      if (value != password.text) {
+                                        return 'password not match';
+                                      }
+                                      return null;
+                                    },
+                                    hint: "Enter password"),
+                              ),
+                              SizedBox(
+                                height: 25.h,
+                              ),
+                              AutoSizeText(
                                 'Phone number',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -194,7 +240,7 @@ class SignUp extends StatelessWidget {
                                 height: 20.h,
                               ),
                               SizedBox(
-                                width: 250.h,
+                                width: 250.w,
                                 height: 40.h,
                                 child: DefaultFormField(
                                     controller: phone,
@@ -222,41 +268,62 @@ class SignUp extends StatelessWidget {
                               SizedBox(
                                 height: 10.h,
                               ),
-                              Container(
+                              SizedBox(
                                 height: 28.h,
-                                width: 110.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30.r)),
-                                child: DateTimePicker(
-                                  dateMask: 'd MMM, yyyy',
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 15.r, color: Color(textColor)),
-                                  initialValue: DateTime.now().toString(),
-                                  firstDate: DateTime(1900),
-                                  lastDate: DateTime(2100),
-                                  validator: (value) {
+                                width: 110.w,
+                                // decoration: BoxDecoration(
+                                //     color: Colors.white,
+                                //     borderRadius: BorderRadius.circular(30.r)),
+                                child: DefaultFormField(
+                                  controller: date,
+                                  readOnly: true,
+                                  hint: 'Pick your Date',
+                                  validate: (value) {
                                     if (value!.isEmpty) {
-                                      return 'please enter your birthday';
+                                      return 'please enter your birth date';
                                     }
                                     return null;
                                   },
-                                  onChanged: (val) {
-                                    SignUpCubit.get(context).birthdaydata(val);
-                                    birthday =
-                                        SignUpCubit.get(context).birthday;
-                                    print(birthday);
-                                  },
-                                  onSaved: (val) {
-                                    birthday =
-                                        SignUpCubit.get(context).birthday;
-                                    print(birthday);
+                                  onTap: () async {
+                                    var time = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime(2100));
+                                    date.text =
+                                        time.toString().substring(0, 10);
                                   },
                                 ),
+                                // DateTimePicker(
+                                //   type: DateTimePickerType.date,
+                                //   dateMask: 'yyyy/MMM/d',
+                                //   // controller: date,
+                                //   decoration: InputDecoration(
+                                //     border: InputBorder.none,
+                                //   ),
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 15.r, color: Color(textColor)),
+                                //   initialValue: DateTime.now().toString(),
+                                //   firstDate: DateTime(1900),
+                                //   lastDate: DateTime(2100),
+                                //   validator: (value) {
+                                //     if (value!.isEmpty) {
+                                //       return 'please enter your birthday';
+                                //     }
+                                //     return null;
+                                //   },
+                                //   onChanged: (val) {
+                                //     SignUpCubit.get(context).birthdaydata(val);
+                                //     birthday = SignUpCubit.get(context).birthday;
+                                //     print("\n${birthday.toString()}\n");
+                                //   },
+                                //   onSaved: (val) {
+                                //     SignUpCubit.get(context).birthdaydata(val);
+                                //     birthday = SignUpCubit.get(context).birthday;
+                                //     print("\n${birthday.toString()}\n");
+                                //   },
+                                // ),
                               ),
                               SizedBox(
                                 height: 25.h,
@@ -270,7 +337,7 @@ class SignUp extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                  width: 250.h,
+                                  width: 250.w,
                                   height: 40.h,
                                   child: DefaultFormField(
                                       controller: address,
@@ -297,7 +364,7 @@ class SignUp extends StatelessWidget {
                                 height: 20.h,
                               ),
                               SizedBox(
-                                width: 250.h,
+                                width: 250.w,
                                 height: 40.h,
                                 child: DefaultFormField(
                                     controller: idnumber,
@@ -327,7 +394,7 @@ class SignUp extends StatelessWidget {
                               ),
                               Container(
                                 height: 28.h,
-                                width: 110.h,
+                                width: 110.w,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(30.r)),
@@ -348,8 +415,7 @@ class SignUp extends StatelessWidget {
                                           ),
                                     iconSize: 30.0,
                                     style: TextStyle(
-                                        color: Color(textColor),
-                                        fontSize: 12),
+                                        color: Color(textColor), fontSize: 12),
                                     items: allCities.map(
                                       (val) {
                                         return DropdownMenuItem<String>(
@@ -371,7 +437,7 @@ class SignUp extends StatelessWidget {
                                 height: 15.h,
                               ),
                               Container(
-                                  width: double.infinity.h,
+                                  width: double.infinity.w,
                                   height: 5.h,
                                   color: Colors.black.withOpacity(0.15)),
                               SizedBox(
@@ -392,22 +458,21 @@ class SignUp extends StatelessWidget {
                                 height: 28,
                                 width: 110,
                                 font: 12,
-                                press: ()  {
+                                press: () {
                                   SignUpCubit.get(context).profileImagePicker();
-                                  print(SignUpCubit.get(context).profileImage);
                                 },
                                 text: "Choose Pic",
                                 icon: Icons.upload_sharp,
                                 radius: 30,
                               ),
                               SizedBox(
-                                width: 100.r,
-                                height: 100.r,
+                                width: 100.w,
+                                height: 100.h,
                                 child: profileImage != null
                                     ? Image.file(
-                                        profileImage,
-                                        width: 100.r,
-                                        height: 100.r,
+                                        profileImage!,
+                                        width: 100.w,
+                                        height: 100.h,
                                       )
                                     : AutoSizeText(' '),
                               ),
@@ -434,7 +499,7 @@ class SignUp extends StatelessWidget {
                                         color: Colors.green,
                                       ),
                                       SizedBox(
-                                        width: 10.h,
+                                        width: 10.w,
                                       ),
                                       AutoSizeText(
                                         'No cap , no glasses',
@@ -453,7 +518,7 @@ class SignUp extends StatelessWidget {
                                         color: Colors.green,
                                       ),
                                       SizedBox(
-                                        width: 10.h,
+                                        width: 10.w,
                                       ),
                                       AutoSizeText(
                                         'No more than 12 months old',
@@ -472,7 +537,7 @@ class SignUp extends StatelessWidget {
                                         color: Colors.green,
                                       ),
                                       SizedBox(
-                                        width: 10.h,
+                                        width: 10.w,
                                       ),
                                       AutoSizeText(
                                         'Face takes 70-80% of it',
@@ -490,7 +555,7 @@ class SignUp extends StatelessWidget {
                                 height: 15.h,
                               ),
                               Container(
-                                  width: double.infinity.h,
+                                  width: double.infinity.w,
                                   height: 5.h,
                                   color: Colors.black.withOpacity(0.15)),
                               SizedBox(
@@ -533,10 +598,10 @@ class SignUp extends StatelessWidget {
                                 height: 10.h,
                               ),
                               SizedBox(
-                                width: 200.h,
+                                width: 200.w,
                                 child: idImage != null
                                     ? Image.file(
-                                        idImage,
+                                        idImage!,
                                         fit: BoxFit.cover,
                                       )
                                     : Image.asset('assets/images/id.jpg'),
@@ -545,23 +610,40 @@ class SignUp extends StatelessWidget {
                                 height: 50.h,
                               ),
                               Center(
-                                child: BoxDec(
-                                  font: 15,
-                                  press: () {},
-                                  height: 40,
-                                  width: 120,
-                                  text: 'SignUp',
-                                  radius: 30,
+                                child: state is! SignUpLoadingState?
+                                  BoxDec(
+                                    font: 15,
+                                    height: 40,
+                                    width: 120,
+                                    text: 'SignUp',
+                                    radius: 30,
+                                    press: () {
+                                      if (formKey.currentState!.validate()) {
+                                        print(
+                                            "\n$idImage\n\n$profileImage\n\n${date.text}");
+                                        SignUpCubit.get(context).userSignUp(
+                                          name: fullname.text,
+                                          email: email.text,
+                                          password: password.text,
+                                          passwordconfirm: passwordconfirm.text,
+                                          phone: phone.text,
+                                          birthday: date.text,
+                                          city: city.toString(),
+                                          address: address.text,
+                                          idnumber: idnumber.text,
+                                          yourpicture: profileImage,
+                                          idpicture: idImage,
+                                        );
+                                      }
+                                    },
+                                  ):Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
-                              ),
                               HaveAccount(
                                 login: false,
                                 prees: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginScreen()),
-                                  );
+                                  navgigtor(context, LoginScreen());
                                 },
                               ),
                             ],

@@ -1,6 +1,8 @@
-const  textColor = 0xffb64dfa;
-var  allCities = [
-  //the same list used in the HTML signup file
+// ignore_for_file: unnecessary_string_escapes
+//the same list used in the HTML signup file
+const textColor = 0xffb64dfa;
+const textColor2 = 0xff4c489d;
+var allCities = [
   "Portsaid",
   "Cairo",
   "Alexandria",
@@ -24,27 +26,26 @@ var  allCities = [
   "Monufia",
   "Hurghada",
   "Banha",
-  "Kafr al-Sheikh",
+  "Kafr al\-Sheikh",
   "El Arish",
   "Matruh",
 ];
-var  allCategories = [
-
-  "Men Clothes",
-  "Women Clothes",
+var allCategories = [
+  "Men\-clothes",
+  "Women\-clothes",
   "Home Tools",
-  "Musical Ins",
-  "Kids Stuff",
+  "Musical",
+  "Kids",
   "Cars",
   "DVDs",
-  "Computer Games",
+  "Games",
   "Books",
-  "Garden Eqp",
-  "Electerics",
-  "Tools",
-  "Kitchen Eqp",
+  "Garden",
+  "Electerical",
+  "Pet Tools",
+  "Kitchen",
   "Furniture",
   "Bikes",
   "Sports",
-  "Others",
+  "Others"
 ];

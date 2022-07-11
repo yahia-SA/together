@@ -1,23 +1,37 @@
-class LoginModel {
+class Profilemodel {
   String? status;
-  String? token;
-  String? message;
-  Data? data;
+  Datamodel? datamodel;
 
-  LoginModel({this.status, this.token, this.message, this.data});
+  Profilemodel({this.status, this.datamodel});
 
-  LoginModel.fromJson(Map<String, dynamic> json) {
+  Profilemodel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    token = json['token'];
-    message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    datamodel = json['data'] != null
+        ? Datamodel.fromJson(json['data'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    data['token'] = token;
-    data['message'] = message;
+    if (datamodel != null) {
+      data['data'] = datamodel!.toJson();
+    }
+    return data;
+  }
+}
+
+class Datamodel {
+  Data? data;
+
+  Datamodel({this.data});
+
+  Datamodel.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -26,24 +40,6 @@ class LoginModel {
 }
 
 class Data {
-  User? user;
-
-  Data({this.user});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (user != null) {
-      data['user'] = user!.toJson();
-    }
-    return data;
-  }
-}
-
-class User {
   String? sId;
   String? name;
   String? email;
@@ -56,8 +52,10 @@ class User {
   String? role;
   int? iV;
   String? passwordChangedAt;
+  String? passwordResetExpires;
+  String? passwordResetToken;
 
-  User(
+  Data(
       {this.sId,
       this.name,
       this.email,
@@ -69,9 +67,11 @@ class User {
       this.iDPicture,
       this.role,
       this.iV,
-      this.passwordChangedAt});
+      this.passwordChangedAt,
+      this.passwordResetExpires,
+      this.passwordResetToken});
 
-  User.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     email = json['email'];
@@ -84,6 +84,8 @@ class User {
     role = json['role'];
     iV = json['__v'];
     passwordChangedAt = json['passwordChangedAt'];
+    passwordResetExpires = json['passwordResetExpires'];
+    passwordResetToken = json['passwordResetToken'];
   }
 
   Map<String, dynamic> toJson() {
@@ -100,6 +102,8 @@ class User {
     data['role'] = role;
     data['__v'] = iV;
     data['passwordChangedAt'] = passwordChangedAt;
+    data['passwordResetExpires'] = passwordResetExpires;
+    data['passwordResetToken'] = passwordResetToken;
     return data;
   }
 }

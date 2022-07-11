@@ -22,8 +22,8 @@ class FAQ extends StatelessWidget {
                       iconTheme: const IconThemeData(color: Colors.black),
                     ),
               body: Container(
-                    width: double.infinity,
-                    height: double.infinity,
+                    width: double.infinity.w,
+                    height: double.infinity.h,
                     decoration: BoxDecoration(
                       gradient: background,
                     ),
@@ -34,10 +34,10 @@ class FAQ extends StatelessWidget {
                       children: [
                         Container(
                           margin: EdgeInsets.only(top: 59.h, bottom: 40.h),
-                          child:  AutoSizeText(
+                          child:  const AutoSizeText(
                             'FAQ',
                             style: TextStyle(
-                                fontSize: 20.r,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
@@ -50,7 +50,7 @@ class FAQ extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(20.0.r),
                             child: ExpansionPanelList(
-                              animationDuration: const Duration(milliseconds: 900),
+                              animationDuration: const Duration(seconds: 1),
                               elevation: 0,
                               expansionCallback: (index, isExpanded) {
                                  FAQCubit.get(context).changeVisibility(index);
@@ -81,8 +81,8 @@ class FAQ extends StatelessWidget {
                                           child: ListTile(
                                             title: AutoSizeText(
                                               item.headr,
-                                              style:  TextStyle(
-                                                  fontSize: 20.r,
+                                              style: const TextStyle(
+                                                  fontSize: 20,
                                                   fontWeight: FontWeight.w600,
                                                   color: Colors.white),
                                               textAlign: TextAlign.left,
@@ -95,8 +95,8 @@ class FAQ extends StatelessWidget {
                                             
                                               title: AutoSizeText(
                                             item.body,
-                                            style: TextStyle(
-                                                fontSize: 16.r,
+                                            style: const TextStyle(
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white),
                                             textAlign: TextAlign.left,

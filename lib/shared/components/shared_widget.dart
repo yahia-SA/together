@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
 
+import 'dart:async';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:together/shared/components/shared_data.dart';
 
 class DefaultTextButton extends StatelessWidget {
   final Function() press;
@@ -25,7 +29,7 @@ class DefaultTextButton extends StatelessWidget {
 
 class DefaultFormField extends StatelessWidget {
   final TextEditingController controller;
-  final TextInputType type;
+  final TextInputType? type;
   final Function(String)? onSubmit;
   final Function(String)? onChange;
   final String? hint;
@@ -36,13 +40,15 @@ class DefaultFormField extends StatelessWidget {
   final IconData? prefix;
   final VoidCallback? suffixPressed;
   final bool isClickable;
+  final bool readOnly;
   final int? maxLength;
   final MaxLengthEnforcement? maxLengthEnforcement;
+  final Color? color;
 
   const DefaultFormField({
     required this.controller,
     Key? key,
-    required this.type,
+    this.type,
     this.onSubmit,
     this.onChange,
     this.hint,
@@ -52,15 +58,18 @@ class DefaultFormField extends StatelessWidget {
     this.prefix,
     this.suffixPressed,
     this.isPassword = false,
+    this.readOnly = false,
     this.isClickable = true,
     this.maxLength,
     this.maxLengthEnforcement,
+    this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      readOnly: readOnly,
       maxLength: maxLength,
       maxLengthEnforcement: maxLengthEnforcement,
       keyboardType: type,
@@ -70,17 +79,17 @@ class DefaultFormField extends StatelessWidget {
       onChanged: onChange,
       onTap: onTap,
       validator: validate,
-      style: const TextStyle(color: Colors.white70),
+      style: TextStyle(color: color ?? Colors.white70),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: const TextStyle(color: Colors.white),
+        hintStyle: TextStyle(color: color ?? Colors.white),
         prefixIcon: prefix != null ? Icon(prefix) : null,
         suffixIcon: suffix != null
             ? IconButton(
                 onPressed: suffixPressed,
                 icon: Icon(
                   suffix,
-                  color: Colors.white,
+                  color: color ?? Colors.white,
                 ),
               )
             : null,
@@ -88,29 +97,41 @@ class DefaultFormField extends StatelessWidget {
     );
   }
 }
+
 class BorrowCard extends StatelessWidget {
-  BorrowCard({Key? key, 
-    this.imagePath='https://camerashop.com.eg/wp-content/uploads/2021/02/Canon-5D-IV.png',
-    this.description='donnez un coup de pouce à votre photographie, grâce à un reflex numérique sophistiqué et facile d\'utilisation. ',
-    this.category='Electerics',
-    this.duration='forever',
-    this.price='${50} \$',
+  final String imagePath;
+  final String description;
+  final String category;
+  final String duration;
+  final String price;
+  final String city;
+  final String name;
+  final VoidCallback onPressed;
+  final IconData icon;
+  final VoidCallback iconPressed;
+  const BorrowCard({
+    Key? key,
+    required this.imagePath,
+    required this.description,
+    required this.category,
+    required this.duration,
+    required this.price,
+    required this.onPressed,
+    required this.name,
+    required this.icon,
+    required this.iconPressed,
+    required this.city,
   }) : super(key: key);
-  var imagePath,description,category,duration,price;
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250.h,
       height: 350.h,
       decoration: BoxDecoration(
         color: Colors.blueGrey[50],
-        borderRadius: BorderRadius.only(topRight: Radius.circular(30.r),topLeft:Radius.circular(30.r) ),
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30.r), topLeft: Radius.circular(30.r)),
         boxShadow: [
-          BoxShadow(
-              blurRadius: 10.r,
-              color: Colors.black.withOpacity(0.5)
-          ),
-
+          BoxShadow(blurRadius: 10.r, color: Colors.black.withOpacity(0.5)),
         ],
       ),
       child: Column(
@@ -118,7 +139,7 @@ class BorrowCard extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.r),
               child: Image.network(
                 imagePath,
                 fit: BoxFit.cover,
@@ -126,107 +147,116 @@ class BorrowCard extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 5,
+            flex: 6,
             child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  color: Color(0xff810072),
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(100),)
-              ),
+              decoration: BoxDecoration(
+                  color: const Color(textColor2),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(100.r),
+                  )),
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 60.h,
-                      child: AutoSizeText(description,
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 4,
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: EdgeInsets.all(20.0.r),
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    height: 200.w,
+                    child: Column(
                       children: [
-                        const AutoSizeText(
-                          'Category:',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                          ),
-                        ),
-                        AutoSizeText(category,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const AutoSizeText(
-                          'Duration:',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                          ),
-                        ),
-                        AutoSizeText(duration,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 20.h,),
-                    Row(
-                      children: [
-                        Expanded(child: AutoSizeText(price,style: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),)),
-
-                        MaterialButton(
-                          onPressed: (){},
-                          color: const Color(0xff763aa6),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          child: const AutoSizeText(
-                            'Borrow Now',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
-                            ),
-                          ),
-                        ),
-
-
-                        Expanded(
-                          child: MaterialButton(
-                            shape: const CircleBorder(),
-                            color: const Color(0xff763aa6),
-                            onPressed: () {},
-                            child: const Icon(
-                              Icons.remove_circle,
+                        SizedBox(
+                          height: 40.h,
+                          child: AutoSizeText(
+                            description,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 4,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                        )
-
+                        ),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const AutoSizeText(
+                              'Category:',
+                              style: TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                            AutoSizeText(
+                              category,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const AutoSizeText(
+                              'Duration:',
+                              style: TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                            AutoSizeText(
+                              duration,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const AutoSizeText(
+                              'city:',
+                              style: TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                            AutoSizeText(
+                              city,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: AutoSizeText(
+                              price,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                            MaterialButton(
+                              onPressed: onPressed,
+                              color: const Color(textColor2),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0.r),
+                              ),
+                              child: AutoSizeText(
+                                name,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ),
+                            Expanded(
+                              child: MaterialButton(
+                                shape: const CircleBorder(),
+                                color: const Color(textColor2),
+                                onPressed: iconPressed,
+                                child: Icon(
+                                  icon,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -238,27 +268,40 @@ class BorrowCard extends StatelessWidget {
 }
 
 class GiveawayCard extends StatelessWidget {
-  GiveawayCard({Key? key, 
-    this.itemName = 'camera',
-    this.description='donnez un coup de pouce à votre photographie, grâce à un reflex numérique sophistiqué et facile d\'utilisation. ',
-    this.category='Electerics',
-    this.duration='forever',
-    this.price='${50} \$',
+  final String imagePath;
+  final String description;
+  final String category;
+  final String duration;
+  final String price;
+  final String name;
+  final String city;
+  final VoidCallback onPressed;
+  final IconData icon;
+  final VoidCallback iconPressed;
+
+  const GiveawayCard({
+    required this.imagePath,
+    required this.description,
+    required this.category,
+    required this.duration,
+    required this.price,
+    required this.onPressed,
+    Key? key,
+    required this.name,
+    required this.icon,
+    required this.iconPressed,
+    required this.city,
   }) : super(key: key);
-  String itemName,description,category,duration,price;
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250.h,
       height: 350.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topRight: Radius.circular(30.r),topLeft:Radius.circular(30.r) ),
         color: Colors.blueGrey[50],
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30.r), topLeft: Radius.circular(30.r)),
         boxShadow: [
-          BoxShadow(
-              blurRadius: 10.r,
-              color: Colors.black.withOpacity(0.5)
-          )
+          BoxShadow(blurRadius: 10.r, color: Colors.black.withOpacity(0.5)),
         ],
       ),
       child: Column(
@@ -266,124 +309,125 @@ class GiveawayCard extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 10.h,),
-                  AutoSizeText(itemName,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color(0xff5d009a),
-                    ),),
-                  SizedBox(height: 10.h,),
-                  SizedBox(
-                    height: 60.h,
-                    child: AutoSizeText(description,
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
-                      style: const TextStyle(
-                        color: Color(0xff5d009a),
-                      ),
-                    ),
-                  ),
-                ],
+              padding: EdgeInsets.all(8.0.r),
+              child: Image.network(
+                imagePath,
+                fit: BoxFit.cover,
               ),
             ),
           ),
           Expanded(
             flex: 5,
             child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  color: Color(0xff5d009a),
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(100),)
-              ),
+              decoration: BoxDecoration(
+                  color: const Color(0xff720974),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(100.r),
+                  )),
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 70.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: EdgeInsets.all(20.0.r),
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                      height: 200.w,
+                      child:Column(
                       children: [
-                        const AutoSizeText(
-                          'Category:',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                          ),
-                        ),
-                        AutoSizeText(category,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const AutoSizeText(
-                          'Duration:',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                          ),
-                        ),
-                        AutoSizeText(duration,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 20.h,),
-                    Row(
-                      children: [
-                        Expanded(child: AutoSizeText(price,style: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),)),
-
-                        MaterialButton(
-                          onPressed: (){},
-                          color: const Color(0xff763aa6),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          child: const AutoSizeText(
-                            'Borrow Now',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16
-                            ),
-                          ),
-                        ),
-
-
-                        Expanded(
-                          child: MaterialButton(
-                            shape: const CircleBorder(),
-                            color: const Color(0xff763aa6),
-                            onPressed: () {},
-                            child: const Icon(
-                              Icons.remove_circle,
+                        SizedBox(
+                          height: 40.h,
+                          child: AutoSizeText(
+                            description,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 4,
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                        )
-
+                        ),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const AutoSizeText(
+                              'Category:',
+                              style: TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                            AutoSizeText(
+                              category,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const AutoSizeText(
+                              'Duration:',
+                              style: TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                            AutoSizeText(
+                              duration,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const AutoSizeText(
+                              'City:',
+                              style: TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                            AutoSizeText(
+                              city,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: AutoSizeText(
+                              price,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                            MaterialButton(
+                              onPressed: onPressed,
+                              color: const Color(0xff720974),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0.r),
+                              ),
+                              child: AutoSizeText(
+                                name,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ),
+                            Expanded(
+                              child: MaterialButton(
+                                shape: const CircleBorder(),
+                                color: const Color(0xff720974),
+                                onPressed: iconPressed,
+                                child: Icon(
+                                  icon,
+                                  size: 24.r,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -391,5 +435,50 @@ class GiveawayCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class MapSample extends StatefulWidget {
+  const MapSample({Key? key}) : super(key: key);
+
+  @override
+  State<MapSample> createState() => MapSampleState();
+}
+
+class MapSampleState extends State<MapSample> {
+  final Completer<GoogleMapController> _controller = Completer();
+
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(30.5965, 32.2715),
+    zoom: 12,
+  );
+
+  static const CameraPosition _kLake = CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(37.43296265331129, -122.08832357078792),
+      tilt: 59.440717697143555,
+      zoom: 19.151926040649414);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GoogleMap(
+        mapType: MapType.hybrid,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _goToMylocation,
+        label: const Text('My Location!'),
+        icon: const Icon(Icons.directions_boat),
+      ),
+    );
+  }
+
+  Future<void> _goToMylocation() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }

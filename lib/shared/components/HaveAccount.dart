@@ -5,6 +5,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:together/shared/components/shared_data.dart';
 
 class HaveAccount extends StatelessWidget {
   final bool login;
@@ -64,7 +65,7 @@ class BoxDec extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height.h,
-      width: width.h,
+      width: width.w,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(radius.r)),
       child: MaterialButton(
@@ -75,12 +76,12 @@ class BoxDec extends StatelessWidget {
           AutoSizeText(
             text,
             style: TextStyle(
-              color: const Color(0xffb64dfa),
+              color: const Color(textColor),
               fontSize: font,
               fontWeight: FontWeight.bold,
             ),
           ),
-          if (icon != null)Icon(icon,size: font.r,color:const Color(0xffb64dfa) ,)
+          if (icon != null)Icon(icon,size: font.r,color:const Color(textColor) ,)
         ]),
       ),
     );

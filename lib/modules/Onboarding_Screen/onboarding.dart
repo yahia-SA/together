@@ -14,10 +14,10 @@ class BoardingScreen extends StatelessWidget {
             title: "Together ",
             body: "welcome to the borrowing world!",
             image: SizedBox(
-              width: 200.h,
+              width: 200.w,
               height: 200.h,
               child: Image.asset(
-                'assets/images/zft34.png',
+                'assets/images/logo.png',
               ),
             ),
             decoration: getPageDecoration(),
@@ -26,7 +26,7 @@ class BoardingScreen extends StatelessWidget {
             title: "Need something?",
             body: "Here you can find what you need",
             image: SizedBox(
-              width: 200.h,
+              width: 200.w,
               height: 200.h,
               child: Lottie.asset('assets/images/onBoarding.json'),
             ),
@@ -36,7 +36,7 @@ class BoardingScreen extends StatelessWidget {
             title: "Take care!",
             body: "public places is preferred",
             image: SizedBox(
-              width: 200.h,
+              width: 200.w,
               height: 200.h,
               child: Lottie.asset('assets/images/location.json'),
             ),
@@ -51,8 +51,7 @@ class BoardingScreen extends StatelessWidget {
         onSkip: () => submit(context),
         dotsDecorator: getDotDecoration(),
         globalBackgroundColor: Colors.white,
-        animationDuration: 350,
-        skipFlex: 0,
+        skipOrBackFlex: 0,
         isTopSafeArea: true,
         nextFlex: 0,
     );

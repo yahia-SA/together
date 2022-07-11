@@ -5,7 +5,7 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: '',
+        baseUrl: 'https://togethernode.herokuapp.com/',
         receiveDataWhenStatusError: true,
       ),
     );
@@ -17,7 +17,7 @@ class DioHelper {
     String? token,
   }) async {
     dio!.options.headers = {
-      'Authorization': token ?? '',
+      'Authorization': "Bearer ${token ?? ''}",
       'Content-Type': 'application/json',
     };
 
@@ -29,12 +29,12 @@ class DioHelper {
 
   static Future<Response> postData({
     required String url,
-    required Map<String, dynamic> data,
+    required dynamic data,
     Map<String, dynamic>? query,
     String? token,
   }) async {
     dio!.options.headers = {
-      'Authorization': token ?? '',
+      'Authorization': "Bearer ${token ?? ''}",
       'Content-Type': 'application/json',
     };
 
@@ -45,21 +45,37 @@ class DioHelper {
     );
   }
 
-  static Future<Response> putData({
+  static Future<Response> patchData({
     required String url,
-    required Map<String, dynamic> data,
+    required dynamic data,
     Map<String, dynamic>? query,
     String? token,
   }) async {
     dio!.options.headers = {
-      'Authorization': token ?? '',
-      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${token ?? ''}",
     };
 
-    return dio!.put(
+    return dio!.patch(
       url,
       queryParameters: query,
       data: data,
     );
   }
+
+    static Future<Response> deleteData({
+    required String url,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    dio!.options.headers = {
+      'Authorization': "Bearer ${token ?? ''}",
+      'Content-Type': 'application/json',
+    };
+
+    return await dio!.delete(
+      url,
+      queryParameters: query,
+    );
+  }
+
 }
