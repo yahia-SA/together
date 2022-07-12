@@ -37,10 +37,6 @@ class PostForm extends StatelessWidget {
           if (state is PostformSuccessState) {
             showToast(
                 text: state.postmodel.status!, state: ToastStates.SUCCESS);
-            Future.delayed(
-              const Duration(milliseconds: 500),
-              () => HomeCubit.get(context).getHomeData(),
-            );
             goToHome(context, const Home());
           }
           if (state is PostformErrorState) {
@@ -171,7 +167,7 @@ class PostForm extends StatelessWidget {
                                                 ),
                                               )
                                             : AutoSizeText(
-                                                '     ' + city!,
+                                                '     ${city!}',
                                                 style: const TextStyle(
                                                     color: Color(textColor),
                                                     fontSize: 12),
@@ -285,7 +281,7 @@ class PostForm extends StatelessWidget {
                                                     ),
                                                   )
                                                 : AutoSizeText(
-                                                    '  ' + category!,
+                                                    '  ${category!}',
                                                     style: const TextStyle(
                                                         color: Color(textColor),
                                                         fontSize: 12),

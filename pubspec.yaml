@@ -29,8 +29,6 @@ environment:
 dependencies:
   auto_size_text: ^3.0.0
   cupertino_icons: ^1.0.2
-  date_time_picker: ^2.1.0
-  device_preview: ^1.0.0
   dio: null
   flutter:
     sdk: flutter
@@ -47,7 +45,7 @@ dependencies:
   url_launcher: ^6.1.2
 
 dev_dependencies:
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 

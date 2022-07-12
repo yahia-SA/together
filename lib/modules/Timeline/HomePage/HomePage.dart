@@ -18,85 +18,96 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeStates>(
-      listener: (context, state) {
+    return BlocProvider(
+      create: (context) => HomeCubit()..getHomeData(),
+      child: BlocConsumer<HomeCubit, HomeStates>(listener: (context, state) {
         if (state is HomeErrorState) {
           showToast(text: state.error, state: ToastStates.ERROR);
         }
-      },
-      builder: (context, state) {
-        if (HomeCubit.get(context).postsModel != null &&
-                state is! HomeLoadingState ||
-            state is! SearchLoadingState) {
-          return builderWidget(context, HomeCubit.get(context).postsModel!);
-        } else {
-          return const Center(
+        if (state is SearchErrorState) {
+          showToast(text: state.error, state: ToastStates.ERROR);
+        }
+
+        if (state is HomeLoadingState &&
+            (HomeCubit.get(context).postsModel == null)) {
+          const Center(
             child: CircularProgressIndicator(),
           );
         }
-      },
-    );
-  }
-
-  builderWidget(context, PostsModel model) {
-    return Scaffold(
-        drawer: const MyDrawer(),
-        appBar: AppBar(
-          actions: [
-            Container(
-                color: Colors.white,
-                width: 138.w,
-                child: Image.asset(
-                  'assets/images/logowtext.png',
-                  width: double.infinity.w,
-                )),
-          ],
-          backgroundColor: const Color(textColor2),
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color(textColor2),
-          child: Icon(
-            Icons.add,
-            size: 45.h,
-          ),
-          onPressed: () {
-            navgigtor(context, PostForm());
-          },
-        ),
-        body: RefreshIndicator(
-          color: const Color(textColor2),
-          onRefresh: () async {
-            return Future.delayed(
-              const Duration(microseconds: 500),
-              () {
-                // HomeCubit.get(context).getHomeData();
-                HomeCubit.get(context).getusersearch();
-              },
-            );
-          },
-          child: SingleChildScrollView(
-              child: Padding(
-            padding: EdgeInsets.all(40.0.r),
-            child: Column(
-              children: [
-                ListView.separated(
-                  itemBuilder: (context, index) =>
-                      buildpostsItem(model.datamodel!.data![index], context),
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 20.0.h,
-                  ),
-                  itemCount: HomeCubit.get(context)
-                      .postsModel!
-                      .datamodel!
-                      .data!
-                      .length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                ),
+        if (state is SearchLoadingState &&
+            (HomeCubit.get(context).postsModel == null)) {
+          const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }, builder: (context, state) {
+        return Scaffold(
+            drawer: const MyDrawer(),
+            appBar: AppBar(
+              actions: [
+                Container(
+                    color: Colors.white,
+                    width: 138.w,
+                    child: Image.asset(
+                      'assets/images/logowtext.png',
+                      width: double.infinity.w,
+                    )),
               ],
+              backgroundColor: const Color(textColor2),
             ),
-          )),
-        ));
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: const Color(textColor2),
+              child: Icon(
+                Icons.add,
+                size: 45.h,
+              ),
+              onPressed: () {
+                navgigtor(context, PostForm());
+              },
+            ),
+            body: state is HomeSuccessState || state is SearchSuccessState
+                ? RefreshIndicator(
+                    color: const Color(textColor2),
+                    onRefresh: () async {
+                      return Future.delayed(
+                        const Duration(microseconds: 500),
+                        () {
+                          HomeCubit.get(context).getHomeData();
+                        },
+                      );
+                    },
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.all(40.0.r),
+                        child: Column(
+                          children: [
+                            ListView.separated(
+                              itemBuilder: (context, index) => buildpostsItem(
+                                  HomeCubit.get(context)
+                                      .postsModel!
+                                      .datamodel!
+                                      .data![index],
+                                  context),
+                              separatorBuilder: (context, index) => SizedBox(
+                                height: 20.0.h,
+                              ),
+                              itemCount: HomeCubit.get(context)
+                                  .postsModel!
+                                  .datamodel!
+                                  .data!
+                                  .length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ))
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ));
+      }),
+    );
   }
 }
 

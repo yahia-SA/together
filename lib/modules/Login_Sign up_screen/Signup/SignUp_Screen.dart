@@ -58,7 +58,7 @@ class SignUp extends StatelessWidget {
                 token = state.loginModel.token;
                 goToHome(
                   context,
-                  const Home(),
+                  Home(),
                 );
               });
             }
@@ -408,7 +408,7 @@ class SignUp extends StatelessWidget {
                                             ),
                                           )
                                         : AutoSizeText(
-                                            '     ' + city!,
+                                            '     ${city!}',
                                             style: TextStyle(
                                                 color: Color(textColor),
                                                 fontSize: 12),

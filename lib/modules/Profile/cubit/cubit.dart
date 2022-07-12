@@ -88,7 +88,9 @@ class ProfileCubit extends Cubit<ProfileStates> {
       profilemodel = Profilemodel.fromJson(response.data);
       getProfileData();
       await getuserposts();
-      HomeCubit.get(BuildContext).getHomeData;
+      BlocProvider(
+        create: (context) => HomeCubit()..getHomeData,
+      );
       emit(ProfileSuccessUpdateUserState(profilemodel!));
     } on DioError catch (e) {
       if (kDebugMode) {
@@ -185,10 +187,9 @@ class ProfileCubit extends Cubit<ProfileStates> {
       postmodel = Postmodel.fromJson(response.data);
       emit(ChangeFavoritesSuccessState(postmodel!));
       {
-        return Future.delayed(
-          const Duration(microseconds: 0),
-          () => HomeCubit.get(BuildContext).getHomeData(),
-        );
+        BlocProvider(
+            create: (context) => HomeCubit()..getHomeData(),
+          );
       }
     } on DioError catch (e) {
       if (kDebugMode) {

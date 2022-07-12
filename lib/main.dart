@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:together/modules/Login_Sign%20up_screen/login/Loginscreen.dart';
-import 'package:together/modules/Profile/cubit/cubit.dart';
 import 'package:together/modules/Timeline/HomePage/HomePage.dart';
 import 'package:together/modules/Timeline/HomePage/cubit/home_cubit.dart';
 import 'package:together/shared/components/SignOut.dart';
@@ -61,15 +60,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 690),
-      builder: (_, widget) => MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => ProfileCubit()
-              ..getProfileData()
-              ..getuserposts(),
-          ),
-          BlocProvider(create: (context) => HomeCubit()..getHomeData()),
-        ],
+      builder: (_, widget) => BlocProvider(
+        create: (context) => HomeCubit()..getHomeData(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

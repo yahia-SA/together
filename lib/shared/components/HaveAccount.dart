@@ -29,9 +29,9 @@ class HaveAccount extends StatelessWidget {
         Container(
           alignment: Alignment.bottomRight,
           child: TextButton(
+            onPressed: prees,
             child: AutoSizeText(login ? 'Sign UP' : "Login",
                 style: const TextStyle(color: Colors.white70, fontSize: 15)),
-            onPressed: prees,
           ),
         ),
       ],
