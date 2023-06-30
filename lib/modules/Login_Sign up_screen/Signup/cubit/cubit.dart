@@ -56,7 +56,7 @@ try{ Response response= await
         data: formData,);
         loginModel=LoginModel.fromJson(response.data);
         emit(SignUpSuccessState(loginModel));
-         }on DioError catch(e){
+         }on DioException catch(e){
           emit(SignUpErrorState(e.response!.data['message'].toString()));
          }
       // .then((value)

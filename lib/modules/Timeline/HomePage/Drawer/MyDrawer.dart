@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:together/modules/About_us/about_us.dart';
 import 'package:together/modules/Contact_Us/contact_us.dart';
 import 'package:together/modules/Profile/ProfileScreen.dart';
-import 'package:together/modules/Timeline/FAQ/FAQ.dart';
+import 'package:together/modules/Timeline/FAQ/fAQ.dart';
 import 'package:together/modules/Timeline/HomePage/HomePage.dart';
 import 'package:together/modules/Timeline/HomePage/cubit/home_cubit.dart';
 import 'package:together/modules/Timeline/HomePage/cubit/home_state.dart';

@@ -52,7 +52,6 @@ class BoardingScreen extends StatelessWidget {
         dotsDecorator: getDotDecoration(),
         globalBackgroundColor: Colors.white,
         skipOrBackFlex: 0,
-        isTopSafeArea: true,
         nextFlex: 0,
     );
   }

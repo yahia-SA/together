@@ -30,7 +30,7 @@ class ContactUsCubit extends Cubit<ContactUsState> {
       );
       loginModel = LoginModel.fromJson(response.data);
       emit(ContactUsSuccessState(loginModel));
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       emit(ContactUsErrorState(e.response!.data['message'].toString()));
     }
   }

@@ -136,8 +136,8 @@ class AboutScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Flexible(
                             child: AutoSizeText(
                               'Our Team',

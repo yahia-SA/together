@@ -182,8 +182,8 @@ class ContactScreen extends StatelessWidget {
                               SizedBox(
                                 height: 20.h,
                               ),
-                              Row(
-                                children: const [
+                              const Row(
+                                children: [
                                   AutoSizeText(
                                     'Say',
                                     style: TextStyle(

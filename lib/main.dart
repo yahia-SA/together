@@ -47,6 +47,7 @@ void main() async {
   } else {
     widget = const BoardingScreen();
   }
+  // ignore: deprecated_member_use
   BlocOverrides.runZoned(() => runApp(
       // DevicePreview(
       //   enabled: true, builder: (context) =>

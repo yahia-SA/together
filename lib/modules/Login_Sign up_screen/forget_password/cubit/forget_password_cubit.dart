@@ -24,7 +24,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       );
       loginModel = LoginModel.fromJson(response.data);
       emit(ForgetPasswordSuccessState(loginModel));
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       emit(ForgetPasswordErrorState(e.response!.data['message'].toString()));
     }
   }

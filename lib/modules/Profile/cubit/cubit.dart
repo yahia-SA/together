@@ -37,7 +37,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       );
       postsModel = PostsModel.fromJson(response.data);
       emit(ProfileSuccessuserpostsState(postsModel!));
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       emit(ProfileErroruserpostsState(error.response!.data['message'].toString()));
     }
   }
@@ -48,7 +48,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       profilemodel = Profilemodel.fromJson(value.data);
       emit(ProfileSuccessState(profilemodel!));
     }).catchError((e) {
-      if (e is DioError) {
+      if (e is DioException) {
         emit(ProfileErrorState(e.response!.data['message'].toString()));
       }
     });
@@ -92,7 +92,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
         create: (context) => HomeCubit()..getHomeData,
       );
       emit(ProfileSuccessUpdateUserState(profilemodel!));
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print("\n${e.response!.data["message"].toString()}\n");
       }
@@ -118,7 +118,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       );
       loginModel = LoginModel.fromJson(response.data);
       emit(ProfileSuccessUpdateUserPasswordState(loginModel!));
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print("\n${e.response!.data["message"].toString()}\n");
       }
@@ -166,7 +166,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       await getuserposts();
       print("\n$data\n");
       emit(ProfileSuccessdeleteuserpostsState(postsModel!));
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       print("\n${e.response!.data['message'].toString()}\n");
       emit(ProfileErrordeleteuserpostsState(
           e.response!.data['message'].toString()));
@@ -191,7 +191,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
             create: (context) => HomeCubit()..getHomeData(),
           );
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (kDebugMode) {
         print("\n${e.response!.data["message"].toString()}\n");
       }

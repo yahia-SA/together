@@ -25,7 +25,7 @@ class HomeCubit extends Cubit<HomeStates> {
           url: posts, token: token, query: {"available": true});
       postsModel = PostsModel.fromJson(response.data);
       emit(HomeSuccessState(postsModel!));
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       emit(HomeErrorState(error.response!.data['message'].toString()));
     }
   }
@@ -100,7 +100,7 @@ class HomeCubit extends Cubit<HomeStates> {
         await getHomeData();
       }
       emit(PostformSuccessState(postmodel));
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       emit(PostformErrorState(e.response!.data['message'].toString()));
     }
   }
@@ -149,7 +149,7 @@ class HomeCubit extends Cubit<HomeStates> {
       }
       log(postsModel!.datamodel!.data!.map((element) => element.description).toString());
       emit(SearchSuccessState(postsModel!));
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       showToast(text: 'not found yet', state: ToastStates.ERROR);
       await getHomeData();
       emit(SearchErrorState(e.response!.data['message'].toString()));
